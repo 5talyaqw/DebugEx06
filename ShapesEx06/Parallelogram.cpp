@@ -12,14 +12,20 @@ void Parallelogram::draw()
 		<< "Angles are: " << getAngle() << "," << getAngle2() << std::endl << "Area is " << CalArea(getWidth(), getHeight()) << std::endl;
 }
 
-double Parallelogram::CalArea(double w, double h) {
+double Parallelogram::CalArea(double w, double h) 
+{
 	if (w < 0 || h < 0)
 	{
 		throw ShapeException();
 	}
 	return w * h;
 }
-void Parallelogram::setAngle(double ang, double ang2) {
+void Parallelogram::setAngle(double ang, double ang2)
+{
+	if (ang < 0 || ang > 180 || ang2 < 0 || ang2 > 180)
+	{
+		throw ShapeException();
+	}
 	angle = ang;
 	angle2 = ang2;
 }

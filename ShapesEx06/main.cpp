@@ -4,6 +4,7 @@
 #include "Rectangle.h"
 #include "Parallelogram.h"
 #include "ShapeException.h"
+#include "InputShapeException.h"
 #include <string>
 #include <iostream>
 
@@ -23,50 +24,145 @@ int main()
 
 
 	std::cout << "Enter information for your objects" << std::endl;
-	const char circle = 'c', quadrilateral = 'q', rectangle = 'r', parallelogram = 'p'; char shapetype;
+	const char hex = 'h',pentagon = 'pe', circle = 'c', quadrilateral = 'q', rectangle = 'r', parallelogram = 'p'; char shapetype;
 	char x = 'y';
-	while (x != 'x') {
+	while (x != 'x')
+	{
 		std::cout << "which shape would you like to work with?.. \nc=circle, q = quadrilateral, r = rectangle, p = parallelogram" << std::endl;
 		std::cin >> shapetype;
+
+		if (std::cin.peek() != '\n')
+		{
+			std::cout << "Warning – Don’t try to build more than one shape at once" << std::endl;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			continue;
+		}
 		try
 		{
 
-			switch (shapetype) {
+			switch (shapetype) 
+			{
+			case 'h':
+				try
+				{
+					std::cout << "enter color, name,  rad for circle" << std::endl;
+					std::cin >> col >> nam >> rad;
+					if (std::cin.fail())
+					{
+						throw InputException();
+					}
+					circ.setColor(col);
+					circ.setName(nam);
+					circ.setRad(rad);
+					ptrcirc->draw();
+				}
+				catch (const InputException& ex)
+				{
+					std::cerr << ex.what() << std::endl;
+
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}
+				break;
 			case 'c':
-				std::cout << "enter color, name,  rad for circle" << std::endl;
-				std::cin >> col >> nam >> rad;
-				circ.setColor(col);
-				circ.setName(nam);
-				circ.setRad(rad);
-				ptrcirc->draw();
+				try 
+				{
+					std::cout << "enter color, name,  rad for circle" << std::endl;
+					std::cin >> col >> nam >> rad;
+					if (std::cin.fail())
+					{
+						throw InputException();
+					}
+					circ.setColor(col);
+					circ.setName(nam);
+					circ.setRad(rad);
+					ptrcirc->draw();
+				}
+				catch (const InputException& ex)
+				{
+					std::cerr << ex.what() << std::endl;
+
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}
 				break;
 			case 'q':
-				std::cout << "enter name, color, height, width" << std::endl;
-				std::cin >> nam >> col >> height >> width;
-				quad.setName(nam);
-				quad.setColor(col);
-				quad.setHeight(height);
-				quad.setWidth(width);
-				ptrquad->draw();
+				try
+				{
+					std::cout << "enter name, color, height, width" << std::endl;
+					std::cin >> nam >> col >> height >> width;
+
+					if (std::cin.fail())
+					{
+						throw InputException();
+					}
+
+					quad.setName(nam);
+					quad.setColor(col);
+					quad.setHeight(height);
+					quad.setWidth(width);
+					ptrquad->draw();
+				}
+				catch (const InputException& ex)
+				{
+					std::cerr << ex.what() << std::endl;
+
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}
 				break;
 			case 'r':
-				std::cout << "enter name, color, height, width" << std::endl;
-				std::cin >> nam >> col >> height >> width;
-				rec.setName(nam);
-				rec.setColor(col);
-				rec.setHeight(height);
-				rec.setWidth(width);
-				ptrrec->draw();
+				try
+				{
+					std::cout << "enter name, color, height, width" << std::endl;
+					std::cin >> nam >> col >> height >> width;
+
+					if (std::cin.fail())
+					{
+						throw InputException();
+					}
+
+					rec.setName(nam);
+					rec.setColor(col);
+					rec.setHeight(height);
+					rec.setWidth(width);
+					ptrrec->draw();
+				}
+				catch (const InputException& ex)
+				{
+					std::cerr << ex.what() << std::endl;
+
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}
 				break;
 			case 'p':
-				std::cout << "enter name, color, height, width, 2 angles" << std::endl;
-				std::cin >> nam >> col >> height >> width >> ang >> ang2;
-				para.setName(nam);
-				para.setColor(col);
-				para.setHeight(height);
-				para.setWidth(width);
-				para.setAngle(ang, ang2);
-				ptrpara->draw();
+				try
+				{
+					std::cout << "enter name, color, height, width, 2 angles" << std::endl;
+					std::cin >> nam >> col >> height >> width >> ang >> ang2;
+
+					if (std::cin.fail())
+					{
+						throw InputException();
+					}
+
+					para.setName(nam);
+					para.setColor(col);
+					para.setHeight(height);
+					para.setWidth(width);
+					para.setAngle(ang, ang2);
+					ptrpara->draw();
+				}
+				catch (const InputException& ex)
+				{
+					std::cerr << ex.what() << std::endl;
+
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}
+				break;
 
 			default:
 				std::cout << "you have entered an invalid letter, please re-enter" << std::endl;
@@ -75,9 +171,16 @@ int main()
 			std::cout << "would you like to add more object press any key if not press x" << std::endl;
 			std::cin.get() >> x;
 		}
-		catch (std::exception e)
+		catch (const std::exception& e)
 		{
 			printf(e.what());
+		}
+		catch (const InputException& ex)
+		{
+			std::cerr << ex.what() << std::endl;
+
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}
 		catch (...)
 		{
