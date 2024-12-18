@@ -4,7 +4,7 @@
 #include "Quadrilateral.h"
 #include <iostream>
 
-class Parallelogram : public Quadrilateral 
+class Parallelogram : public Quadrilateral
 {
 
 public:
@@ -14,14 +14,7 @@ public:
 	void setAngle(double, double);
 	double getAngle2();
 	double getAngle();
-	double CalArea(double w, double h);
 private:
 	double angle;
 	double angle2;
-
-
-
-
-
-
 };

@@ -9,17 +9,9 @@ Parallelogram::Parallelogram(std::string col, std::string nam, int h, int w, dou
 void Parallelogram::draw()
 {
 	std::cout << getName() << std::endl << getColor() << std::endl << "Height is " << getHeight() << std::endl << "Width is " << getWidth() << std::endl
-		<< "Angles are: " << getAngle() << "," << getAngle2() << std::endl << "Area is " << CalArea(getWidth(), getHeight()) << std::endl;
+		<< "Angles are: " << getAngle() << "," << getAngle2() << std::endl << "Area is " << MathUtils::CalParallelogramArea(getWidth(), getHeight()) << std::endl;
 }
 
-double Parallelogram::CalArea(double w, double h) 
-{
-	if (w < 0 || h < 0)
-	{
-		throw ShapeException();
-	}
-	return w * h;
-}
 void Parallelogram::setAngle(double ang, double ang2)
 {
 	if (ang < 0 || ang > 180 || ang2 < 0 || ang2 > 180)

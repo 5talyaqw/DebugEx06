@@ -15,21 +15,14 @@ rectangle::rectangle(std::string nam, std::string col, int w, int h) :Quadrilate
 void rectangle::draw()
 {
 	std::cout << getName() << std::endl << getColor() << std::endl << "Height is " << getHeight() << std::endl << "Width is " << getWidth() << std::endl
-		<< "area is " << CalArea(getWidth(), getHeight()) << std::endl << "is square (1,0)?: " << isSquare(getWidth(), getHeight()) << std::endl;// getisSquare();<-do from main
+		<< "area is " << MathUtils::CalRectangleArea(getWidth(),getHeight())<< std::endl << "is square (1,0)?: " << isSquare(getWidth(), getHeight()) << std::endl;// getisSquare();<-do from main
 }
 
-double rectangle::CalArea(double w, double h) {
-	if (w < 0 || h < 0)
-	{
-		throw ShapeException();
-	}
-	return w * h;
-}
 /*double rectangle::setCalArea() {
 	area;
 }*/
-bool rectangle::isSquare(int w, int h) {
-
+bool rectangle::isSquare(int w, int h) 
+{
 	if (w == h)
 	{
 		return true;

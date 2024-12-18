@@ -3,6 +3,8 @@
 #include "Quadrilateral.h"
 #include "Rectangle.h"
 #include "Parallelogram.h"
+#include "Hexagon.h"
+#include "Pentagon.h"
 #include "ShapeException.h"
 #include "InputShapeException.h"
 #include <string>
@@ -10,25 +12,29 @@
 
 int main()
 {
-	std::string nam, col; double rad = 0, ang = 0, ang2 = 180; int height = 0, width = 0;
+	std::string nam, col; double rad = 0, side = 0, ang = 0, ang2 = 180; int height = 0, width = 0;
 	Circle circ(col, nam, rad);
 	Quadrilateral quad(nam, col, width, height);
 	rectangle rec(nam, col, width, height);
 	Parallelogram para(nam, col, width, height, ang, ang2);
+	Pentagon pen(col, nam, side);
+	Hexagon hex(col, nam, side);
 
 	Shape* ptrcirc = &circ;
 	Shape* ptrquad = &quad;
 	Shape* ptrrec = &rec;
 	Shape* ptrpara = &para;
+	Shape* ptrhex = &hex;
+	Shape* ptrpen = &pen;
 
 
 
 	std::cout << "Enter information for your objects" << std::endl;
-	const char hex = 'h',pentagon = 'pe', circle = 'c', quadrilateral = 'q', rectangle = 'r', parallelogram = 'p'; char shapetype;
+	const char hexagon = 'h', pentagon = 'P', circle = 'c', quadrilateral = 'q', rectangle = 'r', parallelogram = 'p'; char shapetype;
 	char x = 'y';
 	while (x != 'x')
 	{
-		std::cout << "which shape would you like to work with?.. \nc=circle, q = quadrilateral, r = rectangle, p = parallelogram" << std::endl;
+		std::cout << "which shape would you like to work with?.. \nc=circle, q = quadrilateral, r = rectangle, p = parallelogram, h = hexagon, P = pentagon" << std::endl;
 		std::cin >> shapetype;
 
 		if (std::cin.peek() != '\n')
@@ -46,16 +52,41 @@ int main()
 			case 'h':
 				try
 				{
-					std::cout << "enter color, name,  rad for circle" << std::endl;
-					std::cin >> col >> nam >> rad;
+					std::cout << "enter color, name,  side" << std::endl;
+					std::cin >> col >> nam >> side;
 					if (std::cin.fail())
 					{
 						throw InputException();
 					}
-					circ.setColor(col);
-					circ.setName(nam);
-					circ.setRad(rad);
-					ptrcirc->draw();
+					hex.setColor(col);
+					hex.setName(nam);
+					hex.setSide(side);
+					ptrhex->draw();
+
+				}
+				catch (const InputException& ex)
+				{
+					std::cerr << ex.what() << std::endl;
+
+					std::cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}
+				break;
+			case 'P':
+				try
+				{
+					std::cout << "enter color, name,  side" << std::endl;
+					std::cin >> col >> nam >> side;
+					if (std::cin.fail())
+					{
+						throw InputException();
+					}
+
+					pen.setColor(col);
+					pen.setName(nam);
+					pen.setSide(side);
+					ptrpen->draw();
+
 				}
 				catch (const InputException& ex)
 				{
